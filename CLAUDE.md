@@ -6,18 +6,20 @@
 
 task-board: タスク管理ボードアプリケーション。
 
-- 技術スタック: 未定（決まったらここに追記する。例: フレームワーク、言語、DB など）
-- ディレクトリ構成: 未定（プロジェクトが立ち上がったらここに追記する）
+- 技術スタック: React 18 + Vite 6（JavaScript / JSX、Lintに ESLint を使用）
+- ディレクトリ構成:
+  - `src/App.jsx` — タスク一覧の状態管理（追加・完了切り替え・削除）
+  - `src/components/` — `TaskForm`（入力フォーム）、`TaskList` / `TaskItem`（一覧表示）
+  - `src/index.css` / `src/App.css` — スタイル
 
 ## 開発コマンド
 
-技術スタックが決まっていないため、コマンドは未定義です。決まったら以下の項目を埋めてください。
-
-- セットアップ: TODO
-- 開発サーバー起動: TODO
-- ビルド: TODO
-- テスト実行: TODO
-- Lint / フォーマット: TODO
+- セットアップ: `npm install`
+- 開発サーバー起動: `npm run dev`（既定では http://localhost:5173 ）
+- ビルド: `npm run build`
+- プレビュー: `npm run preview`
+- Lint: `npm run lint`
+- テスト実行: 未整備（テストフレームワーク未導入。導入したらここに追記する）
 
 ## Git運用ルール
 
@@ -46,6 +48,5 @@ task-board: タスク管理ボードアプリケーション。
 
 ## 現在の状態（メモ）
 
-- このディレクトリはまだ Git リポジトリとして初期化されていません（`git init` 未実施）。
-- GitHub上のリモートリポジトリも未設定です。
-- 上記の「Git運用ルール」を実際に機能させるには、`git init` とGitHubリモートの設定（`git remote add origin <URL>` など）を先に行う必要があります。
+- Git リポジトリ初期化済み、リモートは https://github.com/kksboy/task-board.git （`main`ブランチ）。
+- React + Vite によるタスクボードの基本機能（追加・完了切り替え・削除・完了タスクのグレー表示）を実装済み。
