@@ -21,6 +21,14 @@ task-board: タスク管理ボードアプリケーション。
 - Lint: `npm run lint`
 - テスト実行: 未整備（テストフレームワーク未導入。導入したらここに追記する）
 
+## デプロイ（GitHub Pages）
+
+- `main`ブランチにpushすると `.github/workflows/deploy.yml` が自動でビルドし、GitHub Pagesへデプロイする
+- 公開URL: https://kksboy.github.io/task-board/
+- `vite.config.js` の `base: '/task-board/'` はこのPages配信パスに合わせたもの。リポジトリ名を変更した場合はここも合わせて変更すること
+- 初回のみ、GitHubリポジトリの Settings > Pages > Build and deployment > Source を **GitHub Actions** に設定する必要がある（手動作業、Claude Codeからは実施不可）
+- ローカルで本番ビルドを確認する場合は `npm run build && npm run preview`（`http://localhost:4173/task-board/` で確認できる）
+
 ## Git運用ルール
 
 **コードに変更を加えたら、その都度コミットし、GitHubへpushすること。**
