@@ -6,11 +6,38 @@
 
 task-board: タスク管理ボードアプリケーション。
 
-- 技術スタック: React 18 + Vite 6（JavaScript / JSX、Lintに ESLint を使用）
+- 技術スタックは[技術スタック](#技術スタック)を参照
 - ディレクトリ構成:
-  - `src/App.jsx` — タスク一覧の状態管理（追加・完了切り替え・削除）
+  - `src/App.jsx` — タスク一覧の状態管理（追加・完了切り替え・削除・localStorageへの永続化）
   - `src/components/` — `TaskForm`（入力フォーム）、`TaskList` / `TaskItem`（一覧表示）
   - `src/index.css` / `src/App.css` — スタイル
+
+## デプロイ先
+
+https://kksboy.github.io/task-board/
+
+## 技術スタック
+
+- **フレームワーク**: React 18（`react` / `react-dom`）
+- **ビルドツール**: Vite 6(`@vitejs/plugin-react`使用)
+- **言語**: JavaScript(JSX)。TypeScriptは未導入
+- **Lint**: ESLint 9(Flatconfig、`eslint-plugin-react` / `react-hooks` / `react-refresh`)
+- **状態管理**: Reactの`useState` / `useEffect`のみ(外部の状態管理ライブラリは未導入)
+- **データ永続化**: ブラウザの`localStorage`(バックエンド・DBなし、クライアント完結)
+- **テスト**: 未導入
+- **ホスティング**: GitHub Pages(静的サイト)。デプロイはGitHub Actions(`.github/workflows/deploy.yml`)で自動化
+- **パッケージマネージャ**: npm(`package-lock.json`をコミット対象とする)
+
+## コンポーネントの命名規約
+
+既存の`src/components/`配下の実装に合わせ、新規コンポーネントも以下の規約に従う。
+
+- **ファイル名・コンポーネント名**: 1ファイル1コンポーネントとし、`PascalCase.jsx`(例: `TaskForm.jsx`, `TaskItem.jsx`, `TaskList.jsx`)。ファイル名とコンポーネント名(関数名)を一致させる
+- **コンポーネント定義**: `function ComponentName(props) { ... }`の関数宣言 + `export default ComponentName`(アロー関数式や名前なしexportは使わない)
+- **Propsのコールバック名**: イベントハンドラをpropsで渡す場合は`onXxx`形式にする(例: `onAddTask`, `onToggleTask`, `onDeleteTask`)。コンポーネント内部のハンドラ本体は`handleXxx`(例: `handleSubmit`)
+- **データの形**: タスク1件は`{ id, text, completed }`の形を保つ。`id`は`crypto.randomUUID()`で生成する
+- **CSSクラス名**: BEM風の命名(`ブロック`, `ブロック__要素`, `ブロック--修飾子`)を使う(例: `task-item`, `task-item__label`, `task-item--completed`)。コンポーネントごとに対応するブロック名を持たせる
+- **配置**: 単一コンポーネントで完結するものは`src/components/`直下に配置し、サブコンポーネントに分割が必要な場合のみディレクトリ化する
 
 ## 開発コマンド
 
@@ -23,8 +50,7 @@ task-board: タスク管理ボードアプリケーション。
 
 ## デプロイ（GitHub Pages）
 
-- `main`ブランチにpushすると `.github/workflows/deploy.yml` が自動でビルドし、GitHub Pagesへデプロイする
-- 公開URL: https://kksboy.github.io/task-board/
+- `main`ブランチにpushすると `.github/workflows/deploy.yml` が自動でビルドし、[デプロイ先](#デプロイ先)へデプロイする
 - `vite.config.js` の `base: '/task-board/'` はこのPages配信パスに合わせたもの。リポジトリ名を変更した場合はここも合わせて変更すること
 - 初回のみ、GitHubリポジトリの Settings > Pages > Build and deployment > Source を **GitHub Actions** に設定する必要がある（手動作業、Claude Codeからは実施不可）
 - ローカルで本番ビルドを確認する場合は `npm run build && npm run preview`（`http://localhost:4173/task-board/` で確認できる）
